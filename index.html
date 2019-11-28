@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #image{
+            width:99%;
+            height: auto;
+        }
+    </style>
+</head>
+<body onload="init()">
+    <input type="button" value="-" onclick="moins()">
+    <input type="range" name="page" id="p" min="1" max="44" step="1" value="1" onchange="slide()">
+    <input type="button" value="+" onclick="plus()">
+    page : <span id="affP"></span><br>
+    <img src="s_01.png" id="image" alt="" oncontextmenu  ="protect(event)">
+    <script>
+        var page= document.getElementById("p").getAttribute("value");
+        var affP = document.getElementById("affP");
+        var image = document.getElementById("image");
+        var last = 44; //dernier slide
+        function moins(){
+            page = page < 1 ? 0 : page-1;
+            p.value = page;
+            affP.innerHTML = page > 9? page : "0" + page;//si la numérotation commence à 01 au lieu de 1 et pour un max de 99 pages
+            image.setAttribute("src", "s_"+affP.innerHTML+".png");
+        }
+        function plus(){
+            page = page >= last ? last : page+1;
+            p.value= page;
+            affP.innerHTML = page > 9? page : "0" + page;
+            image.setAttribute("src", "s_"+affP.innerHTML+".png");
+        }
+        function slide(){
+            page = Number(p.value);
+            affP.innerHTML = page > 9? page : "0" + page;
+            image.setAttribute("src", "s_"+affP.innerHTML+".png");
+        }
+        function init(){
+            page = 1;
+            affP.innerHTML = "01";
+        }
+        function protect(e){      
+            e = e || window.event;
+            e.preventDefault();
+            if(e.button === 2){
+                alert("La copie de cette image est interdite");
+            }
+        }
+    </script>
+</body>
+</html>
